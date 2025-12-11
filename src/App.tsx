@@ -198,6 +198,11 @@ const projects = [
     title: 'LLM Comparison Research',
     description: 'Experimental framework for evaluating language models across multiple dimensions',
     link: '#'
+  },
+  {
+    title: 'Movie Streaming Data System',
+    description: 'Designed a movie streaming management system in MySQL and MongoDB, generating 15k+ customers and 100k+ watch sessions with Python and Faker, then using terminal-based scripts to compare CRUD and aggregation performance across both databases. Used Python + Faker to generate at least 15,000 customers and 100,000 watch_sessions. Inserted data into both MySQL and MongoDB using terminal-run Python scripts and database drivers. Measured and compared execution time by running each SQL and MongoDB query 10 times and averaging the results.',
+    link: '#'
   }
 ]
 
