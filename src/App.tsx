@@ -212,8 +212,14 @@ const projects = [
 
 function App() {
   const allStickers = useMemo(() => generateAllStickers(), [])
-  const [selectedSticker, setSelectedSticker] = useState<CubeSticker | null>(null)
+  // selectedStickerId is the single source of truth
   const [selectedStickerId, setSelectedStickerId] = useState<number | null>(null)
+  
+  // Derive selectedSticker from selectedStickerId
+  const selectedSticker = useMemo(() => {
+    if (selectedStickerId === null) return null
+    return allStickers.find((s) => s.id === selectedStickerId) || null
+  }, [selectedStickerId, allStickers])
 
   // Create mapping from project keys to sticker IDs
   // Match project titles to sticker titles
@@ -243,12 +249,14 @@ function App() {
     }
   }, [allStickers])
 
+  // Handle sticker selection - always sets the selection (no toggle)
   const handleSelectSticker = (stickerId: number) => {
-    const sticker = allStickers.find((s) => s.id === stickerId)
-    if (sticker) {
-      setSelectedSticker(selectedSticker?.id === stickerId ? null : sticker)
-      setSelectedStickerId(selectedSticker?.id === stickerId ? null : stickerId)
-    }
+    setSelectedStickerId(stickerId)
+  }
+
+  // Handle clearing selection
+  const handleClearSelection = () => {
+    setSelectedStickerId(null)
   }
 
   const handleViewMore = (projectKey: 'beacon' | 'library' | 'llm' | 'movies') => {
@@ -311,15 +319,27 @@ function App() {
 
       {/* Info Card (appears when sticker is selected) */}
       {selectedSticker && (
-        <div className="info-card-wrapper">
-          <div className="info-card">
+        <div 
+          className="info-card-wrapper"
+          onClick={(e) => {
+            // Close when clicking outside the card (on the wrapper)
+            if (e.target === e.currentTarget) {
+              handleClearSelection()
+            }
+          }}
+        >
+          <div 
+            className="info-card"
+            onMouseLeave={handleClearSelection}
+            onClick={(e) => e.stopPropagation()}
+          >
             <div 
               className="info-tag" 
               style={{ backgroundColor: getColorValue(selectedSticker.color) }}
             ></div>
             <button 
               className="info-close"
-              onClick={() => setSelectedSticker(null)}
+              onClick={handleClearSelection}
               aria-label="Close"
             >
               ×

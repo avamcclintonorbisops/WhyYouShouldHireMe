@@ -288,21 +288,19 @@ const CubeMesh = forwardRef<CubeMeshHandle, CubeMeshProps>(
       }, 4000) // 4s of idle before resuming
     }
 
-    // Handle programmatic sticker selection
+    // Handle programmatic sticker selection (when selectedStickerId changes externally)
+    // This happens when "View more" is clicked or when selection is set from parent
     useEffect(() => {
       if (selectedStickerId !== null && selectedStickerId !== undefined) {
         const sticker = allStickers.find((s) => s.id === selectedStickerId)
         if (sticker) {
           // Rotate to show the face
+          // Note: We don't call onSelectSticker here because selectedStickerId is already set in the parent
+          // The parent component will derive selectedSticker from selectedStickerId
           rotateToFace(sticker.face)
-          // Select the sticker after a short delay to allow rotation
-          const timeoutId = setTimeout(() => {
-            onSelectSticker(selectedStickerId)
-          }, 500)
-          return () => clearTimeout(timeoutId)
         }
       }
-    }, [selectedStickerId, allStickers, onSelectSticker])
+    }, [selectedStickerId, allStickers])
 
     // Expose handlers via ref
     useImperativeHandle(ref, () => ({
