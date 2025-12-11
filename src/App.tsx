@@ -6,102 +6,102 @@ const factPool: Array<Pick<CubeSticker, 'title' | 'description'>> = [
   {
     title: 'Strategic Data Integration Intern',
     description:
-      'Interned at Orbis Operations as a Strategic Data Integration Intern, building a Teltonika Eye Beacon adapter from scratch.'
+      'Interned at Orbis Operations, engineering Python-based data integrations that authenticated, structured, and delivered real-time device intelligence for operational use cases.'
   },
   {
-    title: 'Beacon Adapter Project',
+    title: 'Beacon Adapter Engineer',
     description:
-      'Designed and deployed a Flask + GraphQL + JWT adapter on Fly.io to stream real beacon data into the Catalyst platform.'
+      'Designed a Teltonika Beacon → Catalyst adapter using Flask, GraphQL, Docker, JWT authentication, and Postman to securely ingest, validate, and transform raw telemetry into analyst-ready data.'
+  },
+  {
+    title: 'Real-Time Device Data Streaming',
+    description:
+      'Deployed a fully containerized backend service on Fly.io, enabling live beacon and GPS streaming via GraphQL endpoints and ensuring reliable data flow for field analysis.'
   },
   {
     title: 'Data Science at GWU',
     description:
-      'Pursuing a B.S. in Data Science at The George Washington University, combining analytics with communication and policy.'
+      'Pursuing a B.S. in Data Science with hands-on experience in Python, R, SQL, Pandas, NumPy, machine learning fundamentals, and analytical problem-solving.'
   },
   {
-    title: 'Communications Minor',
+    title: 'Communication Minor Advantage',
     description:
-      'Minoring in Communication, which helps me explain complex technical ideas clearly to non-technical audiences.'
+      'Minoring in Communication, giving me the ability to translate complex technical systems—APIs, pipelines, deployments—into clear explanations for non-technical stakeholders.'
   },
   {
-    title: 'Technical Toolkit',
+    title: 'Strong Technical Toolkit',
     description:
-      'Hands-on experience with Python, R, SQL, MongoDB, Neo4j, REST APIs, Docker, GitHub, and cloud-hosted apps.'
+      'Skilled in Python, R, SQL, Java, Flask, GraphQL, Docker, JWT auth, MongoDB, Neo4j, Fly.io, Git/GitHub, Postman, Regex, Pandas, NumPy, Matplotlib, tidyverse, and ggplot2.'
   },
   {
     title: 'Data Warehousing & Modeling',
     description:
-      'Built end-to-end data warehousing projects, including schema design, ETL, and performance comparisons across SQL and NoSQL.'
+      'Built relational and NoSQL schemas, designed ETL pipelines in Python, evaluated query performance, and compared SQL vs. MongoDB designs using datasets with 15,000+ rows.'
   },
   {
-    title: 'AI & LLM Experiments',
+    title: 'AI & LLM Experimentation',
     description:
-      'Designed experiments comparing GPT, Claude, DeepSeek, and other LLMs across summarization, reasoning, and prompt robustness.'
+      'Conducted structured evaluations across GPT, Claude, and DeepSeek using reproducible testing, reasoning prompts, robustness checks, and analytic scoring to study model behavior.'
   },
   {
     title: 'Visualization & Storytelling',
     description:
-      'Created data visualizations and dashboards that prioritize clarity, narrative flow, and decision-making impact.'
+      'Developed narrative-driven visualizations using Matplotlib, ggplot2, and tidyverse to turn complex data into insights that support decision-making.'
   },
   {
     title: 'Library Data Analysis',
     description:
-      'Analyzed e-material hold and circulation patterns for the Warren Library Association to guide budgeting and collection strategy.'
+      'Used Python, Pandas, and SQL to analyze digital circulation data for the Warren Library Association, generating insights that informed budgeting and content strategy.'
   },
   {
-    title: 'Backpack Project Founder',
+    title: 'Founder of The Backpack Project',
     description:
-      'Founded the Backpack Project to provide school supplies to under-resourced K-12 students in Asheville, NC.'
+      'Founded and independently ran The Backpack Project for five years, leveraging social media outreach to raise over $10,000 for OpenDoors Asheville to support under-resourced K–12 students.'
   },
   {
     title: 'Alpha Phi Leadership',
     description:
-      'Served as Vice President of New Member Education and Member Experience for Alpha Phi, designing programs and mentoring members.'
+      'Led New Member Education and Member Experience, managing programming, mentorship, and chapter operations while supporting 100+ members through structured communication.'
   },
   {
     title: 'Team Player by Design',
     description:
-      'I have six siblings, so I grew up learning how to communicate, compromise, and function as part of a team.'
+      'Growing up with six siblings taught me natural collaboration, adaptability, communication, and conflict resolution—core strengths in technical teamwork environments.'
   },
   {
     title: 'Calm Under Pressure',
     description:
-      'I\'m steady when things break - whether it\'s a bug in production or a last-minute change, I focus on problem solving, not panic.'
+      'Whether debugging Flask endpoints, troubleshooting Docker deployments, or resolving API failures, I stay steady, analytical, and focused on root-cause solutions.'
   },
   {
-    title: 'Rubik\'s Cube Mindset',
+    title: 'Rubik\'s Cube Thinker',
     description:
-      'I genuinely love Rubik\'s cubes and puzzles - this site reflects how I think: curious, structured, and persistent.'
+      'My love for solving Rubik\'s cubes reflects my engineering mindset: structured problem-solving, pattern recognition, and persistence.'
   },
   {
-    title: 'Curious Learner',
+    title: 'Fast, Curious Learner',
     description:
-      'I actively seek out new tools, frameworks, and ideas and learn them quickly through documentation, experimentation, and feedback.'
+      'Rapidly self-taught tools like GraphQL, Docker, JWT auth, Fly.io deployment, and Neo4j by studying documentation, experimenting, and iterating through hands-on prototypes.'
   },
   {
-    title: 'Mission-Driven Work',
+    title: 'Mission-Driven Engineer',
     description:
-      'I\'m most motivated when the work helps real people - analysts, operators, students, or community members.'
+      'Most motivated when building tools that help real users—analysts, operators, or communities—and create meaningful improvements in their workflows.'
   },
   {
-    title: 'Creative Outside of Tech',
+    title: 'Creative Problem Solver',
     description:
-      'I love cooking, painting, and designing aesthetics for spaces and projects, which helps me bring creativity into technical work.'
+      'As a hired mural artist, I bring strong visual reasoning, attention to detail, and project execution skills that enhance the creativity I apply in technical problem-solving.'
   },
   {
-    title: 'Movement',
+    title: 'Discipline & Dedication',
     description:
-      'I enjoy working out and running, which keeps my energy up and my brain sharp for deep-focus work.'
+      'I maintain a strong sense of discipline through consistent training and long-term goal-setting, which translates into focused problem-solving, reliability, and follow-through in technical work.'
   },
   {
-    title: 'Global Perspective',
+    title: 'Clear Communicator & Presenter',
     description:
-      'Spending time abroad and traveling has made me comfortable adapting quickly and collaborating with people from different backgrounds.'
-  },
-  {
-    title: 'Communication & Presenting',
-    description:
-      'Comfortable presenting to technical and non-technical audiences and distilling complex systems into simple stories and visuals.'
+      'Experienced in presenting backend architectures, data workflows, and technical decisions, with the ability to distill complex systems into simple, actionable explanations.'
   }
 ]
 
