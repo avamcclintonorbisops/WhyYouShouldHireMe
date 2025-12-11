@@ -185,21 +185,25 @@ const skills = [
 
 const projects = [
   {
+    key: 'beacon',
     title: 'Beacon Adapter Platform',
     description: 'Built a real-time data integration system using Flask, GraphQL, and JWT, deployed on Fly.io to stream Teltonika beacon data into Catalyst.',
     link: '#'
   },
   {
+    key: 'library',
     title: 'Library Analytics Project',
     description: 'Performed data analysis on library circulation and hold patterns to support budgeting decisions and long-term collection strategy.',
     link: '#'
   },
   {
+    key: 'llm',
     title: 'LLM Comparison Research',
     description: 'Designed an evaluation framework comparing multiple LLMs across summarization, reasoning, and robustness dimensions.',
     link: '#'
   },
   {
+    key: 'movies',
     title: 'Movie Streaming Data System',
     description: 'Developed a SQL + MongoDB streaming database system with 15k+ customers and 100k+ sessions, using Python + Faker and performance testing across both databases.',
     link: '#'
@@ -209,11 +213,52 @@ const projects = [
 function App() {
   const allStickers = useMemo(() => generateAllStickers(), [])
   const [selectedSticker, setSelectedSticker] = useState<CubeSticker | null>(null)
+  const [selectedStickerId, setSelectedStickerId] = useState<number | null>(null)
+
+  // Create mapping from project keys to sticker IDs
+  // Match project titles to sticker titles
+  const projectToStickerId: Record<string, number> = useMemo(() => {
+    // Find stickers by matching keywords in titles
+    const beaconSticker = allStickers.find(s => 
+      s.title.includes('Beacon') || s.title.includes('Adapter')
+    )
+    
+    const librarySticker = allStickers.find(s => 
+      s.title.includes('Library')
+    )
+    
+    const llmSticker = allStickers.find(s => 
+      s.title.includes('LLM') || s.title.includes('AI')
+    )
+    
+    const moviesSticker = allStickers.find(s => 
+      s.title.includes('Data Warehousing') || s.title.includes('Modeling')
+    )
+
+    return {
+      beacon: beaconSticker?.id || allStickers[1]?.id || 1,
+      library: librarySticker?.id || allStickers[9]?.id || 9,
+      llm: llmSticker?.id || allStickers[7]?.id || 7,
+      movies: moviesSticker?.id || allStickers[6]?.id || 6
+    }
+  }, [allStickers])
 
   const handleSelectSticker = (stickerId: number) => {
     const sticker = allStickers.find((s) => s.id === stickerId)
     if (sticker) {
       setSelectedSticker(selectedSticker?.id === stickerId ? null : sticker)
+      setSelectedStickerId(selectedSticker?.id === stickerId ? null : stickerId)
+    }
+  }
+
+  const handleViewMore = (projectKey: 'beacon' | 'library' | 'llm' | 'movies') => {
+    const stickerId = projectToStickerId[projectKey]
+    if (stickerId) {
+      setSelectedStickerId(stickerId)
+      const el = document.getElementById('cube-section')
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' })
+      }
     }
   }
 
@@ -236,7 +281,7 @@ function App() {
       </section>
 
       {/* Hero Section */}
-      <section className="hero">
+      <section id="cube-section" className="hero">
         <div className="hero-blobs">
           <div className="blob blob-1"></div>
           <div className="blob blob-2"></div>
@@ -256,6 +301,7 @@ function App() {
             <div className="hero-cube-card">
               <RubiksCube 
                 allStickers={allStickers}
+                selectedStickerId={selectedStickerId}
                 onSelectSticker={handleSelectSticker}
               />
             </div>
@@ -327,7 +373,13 @@ function App() {
               <div key={index} className="project-card">
                 <h3 className="project-title">{project.title}</h3>
                 <p className="project-description">{project.description}</p>
-                <a href={project.link} className="project-link">View more →</a>
+                <button 
+                  onClick={() => handleViewMore(project.key as 'beacon' | 'library' | 'llm' | 'movies')}
+                  className="project-link"
+                  style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, textAlign: 'left', font: 'inherit' }}
+                >
+                  View more →
+                </button>
               </div>
             ))}
           </div>

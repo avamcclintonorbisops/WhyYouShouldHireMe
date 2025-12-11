@@ -19,6 +19,7 @@ export type CubeSticker = {
 
 interface RubiksCubeProps {
   allStickers: CubeSticker[]
+  selectedStickerId?: number | null
   onSelectSticker: (stickerId: number) => void
 }
 
@@ -162,16 +163,18 @@ function Face({ face, stickers, onSelectSticker, cubeSize }: FaceProps) {
 // Main cube mesh component
 interface CubeMeshProps {
   allStickers: CubeSticker[]
+  selectedStickerId?: number | null
   onSelectSticker: (stickerId: number) => void
 }
 
 export interface CubeMeshHandle {
   handleDragStart: () => void
   handleDragEnd: () => void
+  rotateToFace: (face: CubeFace) => void
 }
 
 const CubeMesh = forwardRef<CubeMeshHandle, CubeMeshProps>(
-  ({ allStickers, onSelectSticker }, ref) => {
+  ({ allStickers, selectedStickerId, onSelectSticker }, ref) => {
     const cubeSize = 3
     const faces: CubeFace[] = ['front', 'back', 'left', 'right', 'top', 'bottom']
     
@@ -182,11 +185,75 @@ const CubeMesh = forwardRef<CubeMeshHandle, CubeMeshProps>(
     // Rotation speed with easing
     const currentSpeedRef = useRef(0) // what we're actually using each frame
     const targetSpeedRef = useRef(0.004) // desired speed when fully auto-rotating
+    
+    // Programmatic rotation state
+    const targetRotationRef = useRef<{ y: number; x: number } | null>(null)
+    const isRotatingToFaceRef = useRef(false)
+
+    // Calculate target rotation for a face
+    const getRotationForFace = (face: CubeFace): { y: number; x: number } => {
+      switch (face) {
+        case 'front':
+          return { y: 0, x: 0.25 }
+        case 'back':
+          return { y: Math.PI, x: 0.25 }
+        case 'right':
+          return { y: Math.PI / 2, x: 0.25 }
+        case 'left':
+          return { y: -Math.PI / 2, x: 0.25 }
+        case 'top':
+          return { y: 0, x: -Math.PI / 2 + 0.25 }
+        case 'bottom':
+          return { y: 0, x: Math.PI / 2 + 0.25 }
+        default:
+          return { y: 0, x: 0.25 }
+      }
+    }
+
+    // Rotate to show a specific face
+    const rotateToFace = (face: CubeFace) => {
+      targetRotationRef.current = getRotationForFace(face)
+      isRotatingToFaceRef.current = true
+      targetSpeedRef.current = 0 // Stop auto-rotation
+    }
 
     // Auto-rotation with easing
     useFrame(() => {
       const cube = cubeRef.current
       if (!cube) return
+
+      // Handle programmatic rotation to face
+      if (isRotatingToFaceRef.current && targetRotationRef.current) {
+        const targetY = targetRotationRef.current.y
+        const targetX = targetRotationRef.current.x
+        const currentY = cube.rotation.y
+        
+        // Normalize angles to [-PI, PI] for y
+        let normalizedTargetY = targetY
+        let normalizedCurrentY = currentY
+        while (normalizedCurrentY > Math.PI) normalizedCurrentY -= 2 * Math.PI
+        while (normalizedCurrentY < -Math.PI) normalizedCurrentY += 2 * Math.PI
+        while (normalizedTargetY > Math.PI) normalizedTargetY -= 2 * Math.PI
+        while (normalizedTargetY < -Math.PI) normalizedTargetY += 2 * Math.PI
+        
+        // Find shortest rotation path
+        let deltaY = normalizedTargetY - normalizedCurrentY
+        if (deltaY > Math.PI) deltaY -= 2 * Math.PI
+        if (deltaY < -Math.PI) deltaY += 2 * Math.PI
+        
+        // Smoothly lerp to target
+        cube.rotation.y += deltaY * 0.1
+        cube.rotation.x = THREE.MathUtils.lerp(cube.rotation.x, targetX, 0.1)
+        
+        // Check if we're close enough
+        if (Math.abs(deltaY) < 0.01 && Math.abs(cube.rotation.x - targetX) < 0.01) {
+          cube.rotation.y = targetY
+          cube.rotation.x = targetX
+          isRotatingToFaceRef.current = false
+          targetRotationRef.current = null
+        }
+        return
+      }
 
       // Smoothly ease currentSpeed toward targetSpeed
       const ease = 0.04 // smaller = slower easing
@@ -221,10 +288,27 @@ const CubeMesh = forwardRef<CubeMeshHandle, CubeMeshProps>(
       }, 4000) // 4s of idle before resuming
     }
 
+    // Handle programmatic sticker selection
+    useEffect(() => {
+      if (selectedStickerId !== null && selectedStickerId !== undefined) {
+        const sticker = allStickers.find((s) => s.id === selectedStickerId)
+        if (sticker) {
+          // Rotate to show the face
+          rotateToFace(sticker.face)
+          // Select the sticker after a short delay to allow rotation
+          const timeoutId = setTimeout(() => {
+            onSelectSticker(selectedStickerId)
+          }, 500)
+          return () => clearTimeout(timeoutId)
+        }
+      }
+    }, [selectedStickerId, allStickers, onSelectSticker])
+
     // Expose handlers via ref
     useImperativeHandle(ref, () => ({
       handleDragStart,
-      handleDragEnd
+      handleDragEnd,
+      rotateToFace
     }))
 
     // Cleanup timeout on unmount
@@ -260,7 +344,7 @@ const CubeMesh = forwardRef<CubeMeshHandle, CubeMeshProps>(
 )
 
 // Main RubiksCube component
-export default function RubiksCube({ allStickers, onSelectSticker }: RubiksCubeProps) {
+export default function RubiksCube({ allStickers, selectedStickerId, onSelectSticker }: RubiksCubeProps) {
   const cubeMeshRef = useRef<CubeMeshHandle>(null)
 
   const handleDragStart = () => {
@@ -298,7 +382,8 @@ export default function RubiksCube({ allStickers, onSelectSticker }: RubiksCubeP
         {/* Cube */}
         <CubeMesh 
           ref={cubeMeshRef}
-          allStickers={allStickers} 
+          allStickers={allStickers}
+          selectedStickerId={selectedStickerId}
           onSelectSticker={onSelectSticker}
         />
       </Canvas>
