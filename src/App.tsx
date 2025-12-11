@@ -186,22 +186,22 @@ const skills = [
 const projects = [
   {
     title: 'Beacon Adapter Platform',
-    description: 'Real-time data integration system built with Flask, GraphQL, and deployed on Fly.io',
+    description: 'Built a real-time data integration system using Flask, GraphQL, and JWT, deployed on Fly.io to stream Teltonika beacon data into Catalyst.',
     link: '#'
   },
   {
     title: 'Library Analytics Project',
-    description: 'Data analysis for collection strategy and budgeting decisions',
+    description: 'Performed data analysis on library circulation and hold patterns to support budgeting decisions and long-term collection strategy.',
     link: '#'
   },
   {
     title: 'LLM Comparison Research',
-    description: 'Experimental framework for evaluating language models across multiple dimensions',
+    description: 'Designed an evaluation framework comparing multiple LLMs across summarization, reasoning, and robustness dimensions.',
     link: '#'
   },
   {
     title: 'Movie Streaming Data System',
-    description: 'Designed a movie streaming management system in MySQL and MongoDB, generating 15k+ customers and 100k+ watch sessions with Python and Faker, then using terminal-based scripts to compare CRUD and aggregation performance across both databases. Used Python + Faker to generate at least 15,000 customers and 100,000 watch_sessions. Inserted data into both MySQL and MongoDB using terminal-run Python scripts and database drivers. Measured and compared execution time by running each SQL and MongoDB query 10 times and averaging the results.',
+    description: 'Developed a SQL + MongoDB streaming database system with 15k+ customers and 100k+ sessions, using Python + Faker and performance testing across both databases.',
     link: '#'
   }
 ]
