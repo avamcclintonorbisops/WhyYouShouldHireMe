@@ -89,9 +89,9 @@ const factPool: Array<Pick<CubeSticker, 'title' | 'description'>> = [
       'I love cooking, painting, and designing aesthetics for spaces and projects, which helps me bring creativity into technical work.'
   },
   {
-    title: 'Soccer & Movement',
+    title: 'Movement',
     description:
-      'I enjoy soccer and staying active, which keeps my energy up and my brain sharp for deep-focus work.'
+      'I enjoy working out and running, which keeps my energy up and my brain sharp for deep-focus work.'
   },
   {
     title: 'Global Perspective',
