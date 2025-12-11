@@ -24,6 +24,8 @@
   background: var(--bg-primary);
   position: relative;
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ============================================
@@ -55,6 +57,11 @@
   text-decoration: none;
   transition: color 0.3s ease;
   position: relative;
+  padding: 0.5rem 0.25rem;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-link:hover {
@@ -610,7 +617,9 @@
   color: var(--text-primary);
   text-decoration: none;
   transition: color 0.3s ease;
-  display: block;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .contact-link:hover {
@@ -649,6 +658,22 @@
     padding: 1.25rem;
   }
 
+  .hero-text {
+    max-width: 100%;
+  }
+
+  .hero-heading {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
+  .hero-intro {
+    font-size: 1.125rem;
+  }
+
+  .hero-subtext {
+    font-size: 0.95rem;
+  }
+
   .info-card-wrapper {
     position: fixed;
     top: 50%;
@@ -663,6 +688,7 @@
   .nav-container {
     gap: 2rem;
     padding: 0 1.5rem;
+    flex-wrap: wrap;
   }
 
   .skills-grid,
@@ -673,70 +699,233 @@
   .contact-section {
     padding: 4rem 1.5rem;
   }
+
+  .section-heading {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
 }
 
 @media (max-width: 640px) {
   .hero-title-section {
-    padding: 5rem 1.5rem 2.5rem;
+    padding: 4rem 1rem 2rem;
   }
 
-  .hero-title-blob {
-    width: 300px;
-    height: 200px;
-    filter: blur(80px);
-  }
-
-  .hero {
-    padding: 4rem 1.5rem;
-    min-height: auto;
-  }
-
-  .section {
-    padding: 4rem 1.5rem;
-  }
-
-  .nav-container {
-    gap: 1.5rem;
+  .hero-title {
+    font-size: clamp(2.5rem, 10vw, 4rem);
     padding: 0 1rem;
   }
 
-  .nav-link {
-    font-size: 0.85rem;
+  .hero-title-blob {
+    width: 250px;
+    height: 180px;
+    filter: blur(60px);
+  }
+
+  .hero {
+    padding: 3rem 1rem;
+    min-height: auto;
+  }
+
+  .hero-container {
+    padding: 0;
+  }
+
+  .hero-grid {
+    gap: 2rem;
+  }
+
+  .hero-heading {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-intro {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .hero-subtext {
+    font-size: 0.9rem;
   }
 
   .hero-cube-card {
-    padding: 1.25rem;
+    padding: 1rem;
+    border-radius: 24px;
   }
 
   .hero-cube-card > div {
-    min-height: 350px;
+    min-height: 300px;
   }
 
   .hero-cube-card canvas {
-    min-height: 350px;
+    min-height: 300px;
+  }
+
+  .section {
+    padding: 3rem 1rem;
+  }
+
+  .section-heading {
+    font-size: clamp(1.5rem, 7vw, 2rem);
+    margin-bottom: 2rem;
+  }
+
+  .section-text {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .nav {
+    padding: 1rem 0;
+  }
+
+  .nav-container {
+    gap: 1rem;
+    padding: 0 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 0.25rem 0;
   }
 
   .info-card-wrapper {
-    max-width: calc(100% - 2rem);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: none;
+    max-width: 100%;
+    margin: 0;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .info-card {
-    padding: 2rem;
+    padding: 1.5rem;
+    max-width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    margin: 0;
+  }
+
+  .info-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .info-body {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .info-close {
+    width: 28px;
+    height: 28px;
+    font-size: 1.25rem;
+  }
+
+  .skill-card,
+  .project-card {
+    padding: 1.5rem;
+  }
+
+  .skill-title,
+  .project-title {
+    font-size: 1.25rem;
+  }
+
+  .skill-description,
+  .project-description {
+    font-size: 0.9rem;
+  }
+
+  .cta-section {
+    padding: 0;
+  }
+
+  .cta-heading {
+    font-size: clamp(1.75rem, 7vw, 2rem);
+  }
+
+  .cta-text {
+    font-size: 1rem;
+    margin-bottom: 2rem;
   }
 
   .cta-buttons {
     flex-direction: column;
+    gap: 0.75rem;
   }
 
   .cta-button {
     width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
   }
 
   .contact-section {
-    padding: 4rem 1.5rem;
+    padding: 3rem 1rem;
+  }
+
+  .contact-heading {
+    font-size: clamp(1.75rem, 7vw, 2rem);
+  }
+
+  .contact-text {
+    font-size: 1rem;
+    margin-bottom: 2rem;
   }
 
   .contact-item {
-    padding: 1.5rem;
+    padding: 1.25rem;
+  }
+
+  .contact-label {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-link {
+    font-size: 0.9rem;
+    word-break: break-word;
+    min-height: 40px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 400px) {
+  .hero-title {
+    font-size: clamp(2rem, 12vw, 3rem);
+  }
+
+  .hero-cube-card > div,
+  .hero-cube-card canvas {
+    min-height: 280px;
+  }
+
+  .nav-link {
+    font-size: 0.75rem;
+  }
+
+  .info-card {
+    padding: 1.25rem;
+  }
+
+  .info-title {
+    font-size: 1.25rem;
+  }
+
+  .info-body {
+    font-size: 0.9rem;
   }
 }
